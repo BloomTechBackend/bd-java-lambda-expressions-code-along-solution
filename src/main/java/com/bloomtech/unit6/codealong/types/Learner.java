@@ -31,7 +31,7 @@ public class Learner implements Cloneable {
                 this.scores = new ArrayList(scores);
 
                 // TODO: Code-ALong - calculate totalScore a Lambda Expression
-                totalScore = 0;
+                totalScore = scores.stream().reduce(0,(total, aScore) -> total + aScore);
 
                 averageScore = totalScore / scores.size();
         }
@@ -93,7 +93,7 @@ public class Learner implements Cloneable {
         // static methods are used so they can be invoked without objects:
         //          Learner::methodName()
         //**************************************************************************
-        public static int compareByName(Learner learner1, Learner learner2) {
+        /*public static int compareByName(Learner learner1, Learner learner2) {
                 return learner1.name.compareTo(learner2.name);
         }
         public static int compareById(Learner learner1, Learner learner2) {
@@ -115,5 +115,5 @@ public class Learner implements Cloneable {
                 // Multiply by 10000 to make double value a meaningful int
                 // so, .123, when cast to an int, is 1230 instead of 0
                 return (int) learner1.averageScore * 10000 - (int) learner2.averageScore * 10000;
-        }
+        }*/
 }

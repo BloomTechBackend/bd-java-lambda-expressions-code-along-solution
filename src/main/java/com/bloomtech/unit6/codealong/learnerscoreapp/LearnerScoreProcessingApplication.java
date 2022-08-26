@@ -82,38 +82,43 @@ public class LearnerScoreProcessingApplication {
                                     break;
                                }
                                case SORT_BY_NAME: {
-                                    learners.sort(Learner::compareByName);
+                                 // learners.sort((l1, l2) -> l1.getName().compareTo(l2.getName()));
+                                    learners.sort(Comparator.comparing(Learner::getName));
                                     displayAllLearners();
                                     break;
                                }
                                case SORT_BY_ID: {
-                                    learners.sort(Learner::compareById);
+                                 // learners.sort((l1, l2) -> l1.getId()- l2.getId());
+                                    learners.sort(Comparator.comparingInt(Learner::getId));
                                     displayAllLearners();
                                     break;
                                }
                                case SORT_BY_TRACK: {
-                                    learners.sort(Learner::compareByTrack);
+                                 // learners.sort((l1, l2) -> l1.getTrack().compareTo(l2.getTrack()));
+                                    learners.sort(Comparator.comparing(Learner::getTrack));
                                     displayAllLearners();
                                     break;
                                }
                                case SORT_BY_TRACK_AND_NAME: {
-                                    learners.sort(Learner::compareByTrackAndName);
+                                // learners.sort(Learner::compareByTrackAndName);
+                                   learners.sort(Comparator.comparing(Learner::getTrack).thenComparing(Learner::getName));;
                                     displayAllLearners();
                                     break;
                                }
                                case SORT_BY_TOTAL_SCORE: {
-                                    learners.sort(Learner::compareByTotalScore);
+                                 // learners.sort((l1, l2) -> l1.getTotalScore() - l2.getTotalScore());
+                                    learners.sort(Comparator.comparingInt(Learner::getTotalScore));
                                     displayAllLearners();
                                     break;
                                }
                                case SORT_BY_AVG_SCORE:_SCORE: {
-                                    learners.sort(Learner::compareByAvgScore);
+                                    learners.sort((l1, l2) -> (int) (l1.getAverageScore() - l2.getAverageScore()));
                                     displayAllLearners();
                                     break;
                                }
                                case REFRESH_DATA_FROM_FILE: {
                                     learners.removeAll(learners);  // Remove all app data structure current entries
-                                    loadLearnerDataFromFile();                 // Reload app data structure
+                                    loadLearnerDataFromFile();     // Reload app data structure
                                     break;
                                }
                                case EXIT_OPTION: {
@@ -229,12 +234,12 @@ public class LearnerScoreProcessingApplication {
             Scanner learnerFileReader  = null;                // Scanner object to read the file
 
             try {
-                learnersFile       = new File(LEARNERS_FILE_NAME);    // Instantiate File object resprenenting data
+                learnersFile       = new File(LEARNERS_FILE_NAME);    // Instantiate File object representing data
                 learnerFileReader  = new Scanner(learnersFile);       // Instantiate Scanner to read file
                 while (learnerFileReader.hasNextLine()) {             // Loop as long as there is data in the file
-                      aLine = learnerFileReader.nextLine().strip(); //      Get a line from the file and store it
-                      String[] learnerData = aLine.split(",");      //      Parse values in line based on ,
-                      learners.add(new Learner(learnerData[0]       //      Add to List with  input track
+                      aLine = learnerFileReader.nextLine().strip();   //    Get a line from the file and store it
+                      String[] learnerData = aLine.split(",");        //    Parse values in line based on ,
+                      learners.add(new Learner(learnerData[0]         //    Add to List with  input track
                                               ,Integer.parseInt(learnerData[1]) //      and  input id
                                               ,learnerData[2]                   //      and  input name and
                                               ,Arrays.asList(Integer.parseInt(learnerData[3]) // input scores
