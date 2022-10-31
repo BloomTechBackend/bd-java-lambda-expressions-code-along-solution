@@ -33,7 +33,7 @@ public class Learner implements Cloneable {
                 // TODO: Code-ALong - calculate totalScore a Lambda Expression
                 totalScore = scores.stream().reduce(0,(total, aScore) -> total + aScore);
 
-                averageScore = totalScore / scores.size();
+                averageScore = (double) totalScore / scores.size();
         }
 //*******************************************************************************
 // getters/setters

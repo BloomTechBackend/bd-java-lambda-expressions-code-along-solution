@@ -112,7 +112,7 @@ public class LearnerScoreProcessingApplication {
                                     break;
                                }
                                case SORT_BY_AVG_SCORE:_SCORE: {
-                                    learners.sort((l1, l2) -> (int) (l1.getAverageScore() - l2.getAverageScore()));
+                                    learners.sort((l1, l2) -> (int) ((l1.getAverageScore() * 10000  -  (l2.getAverageScore() * 10000))));
                                     displayAllLearners();
                                     break;
                                }
